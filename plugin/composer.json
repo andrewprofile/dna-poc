@@ -1,0 +1,29 @@
+{
+    "name": "andrewprofile/plugin",
+    "description": "Plugin for eCommerce",
+    "license": "proprietary",
+    "type": "project",
+    "repositories": [
+        {
+            "type": "artifact",
+            "url": "../artifact/"
+        }
+    ],
+    "require": {
+        "php": "~7.1",
+        "andrewprofile/micro-kernel": "1.0.0-dev",
+        "andrewprofile/http-client": "1.0.0-dev",
+        "psr/http-message": "~1.0",
+        "ext-json": "*",
+        "ext-curl": "*"
+    }
+    ,
+    "require-dev": {
+        "roave/security-advisories": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "DNA\\Plugin\\": "src"
+        }
+    }
+}
