@@ -1,0 +1,16 @@
+{
+    "name": "andrewprofile/micro-kernel",
+    "description": "Micro-Kernel of plugin",
+    "license": "proprietary",
+    "type": "library",
+    "minimum-stability": "dev",
+    "version": "1.0.0-dev",
+    "require": {
+        "php": "~7.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "DNA\\MicroKernel\\": "src"
+        }
+    }
+}
