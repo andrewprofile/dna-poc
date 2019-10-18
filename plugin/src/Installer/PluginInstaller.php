@@ -9,13 +9,13 @@ class PluginInstaller implements Installer
 {
     public function install(): bool
     {
-        PluginManager::updateSettings('installed', true);
+        PluginManager::updateSettings('installed', '1');
         return true;
     }
 
     public function uninstall(): bool
     {
-        PluginManager::updateSettings('installed', false);
+        PluginManager::updateSettings('installed', '0');
         return true;
     }
 

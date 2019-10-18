@@ -25,23 +25,23 @@ final class InMemoryClient
         return $this->lastId;
     }
 
-    public function query($query, $value): void
+    public function query(string $query, string $value): void
     {
        $this->data[$query] = $this->quote($value);
     }
 
-    public function quote($value): string
+    public function quote(string $value): string
     {
         return (string) $value;
     }
 
-    public function fetchAll($query, $value): array
+    public function fetchAll(string $query, string $value): array
     {
         return $this->fetchRow($query, $value);
     }
 
-    public function fetchRow($query, $value): array
+    public function fetchRow(string $query, string $value): ?array
     {
-        return (isset($this->data[$query]) && $this->data[$query] === $value) ? $this->data[$query] : null;
+        return (isset($this->data[$query]) && $this->data[$query] === $value) ? [$this->data[$query]] : null;
     }
 }

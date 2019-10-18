@@ -14,12 +14,7 @@ class UriBuilder
      */
     private $uri;
 
-    /**
-     * UriBuilder constructor.
-     * @param string $baseUri
-     * @param string $uri
-     */
-    public function __construct($baseUri, $uri)
+    public function __construct(string $baseUri, string $uri)
     {
         $this->baseUri = $baseUri;
         $this->uri = $uri;

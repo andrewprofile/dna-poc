@@ -37,13 +37,7 @@ class CurlProvider implements Provider
         $this->handle = curl_copy_handle($this->handle);
     }
 
-    /**
-     * @param string $method
-     * @param string $uri
-     * @param array $options
-     * @return array
-     */
-    public function request($method, $uri, $options): array
+    public function request(string $method, string $uri, array $options): array
     {
         curl_setopt($this->handle, CURLOPT_SSL_VERIFYPEER, true);
         curl_setopt($this->handle, CURLOPT_URL, $uri);
@@ -62,17 +56,11 @@ class CurlProvider implements Provider
         return (new JsonResponse($response))->getPayload();
     }
 
-    /**
-     * @param array $headers
-     */
-    public function headers($headers): void
+    public function headers(array $headers): void
     {
         curl_setopt($this->handle, CURLOPT_HTTPHEADER, $headers);
     }
 
-    /**
-     * @return bool
-     */
     private static function isAvailable(): bool
     {
         return extension_loaded('curl');
