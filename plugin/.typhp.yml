@@ -1,0 +1,9 @@
+project:
+  directories:
+    - 'src'
+    - '../micro-kernel/src'
+    - '../http-client/src'
+  exclude:
+    directories:
+      - 'vendor'
+      - 'Response'

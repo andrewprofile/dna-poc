@@ -7,14 +7,19 @@ namespace DNA\Plugin\Manager;
 class PluginManager
 {
     /**
-     * @var array
+     * @var array|null
      */
     protected $defaultSettings;
 
     /**
-     * @var array
+     * @var array|null
      */
     protected $settings;
+
+    public function __construct()
+    {
+        $this->getDefaultSettings();
+    }
 
     public function getDefaultSettings(): array
     {
