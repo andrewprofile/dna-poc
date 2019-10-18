@@ -55,8 +55,12 @@ class Client
      *
      * @throws ProviderException
      */
-    public function __construct($licenseKey, $apiVersion, $pluginVersion, $apiUrl = 'https://web.api/')
-    {
+    public function __construct(
+        string $licenseKey,
+        string $apiVersion,
+        string $pluginVersion,
+        string $apiUrl = 'https://web.api/'
+    ) {
         $this->provider = new CurlProvider();
         $this->licenseKey = $licenseKey;
         $this->apiVersion = $apiVersion;
@@ -65,55 +69,32 @@ class Client
         $this->connect('plugins/versions/latest');
     }
 
-    /**
-     * @return string
-     */
     public function getApiVersion(): string
     {
         return $this->apiVersion;
     }
 
-    /**
-     * @return string
-     */
     public function getPluginVersion(): string
     {
         return $this->pluginVersion;
     }
 
-    /**
-     * @return string
-     */
     public function getRemoteVersion(): string
     {
         return $this->remoteVersion;
     }
 
-    /**
-     * @return bool
-     */
     public function isConnected(): bool
     {
         return $this->isConnected;
     }
 
-    /**
-     * Checks if the current plugin is the newest version
-     *
-     * @return bool
-     */
     public function isNewestVersion(): bool
     {
         return version_compare($this->pluginVersion, $this->remoteVersion) !== -1;
     }
 
-    /**
-     * @param string     $method
-     * @param string     $uri
-     * @param null|array $options
-     * @return array
-     */
-    public function request($method, $uri, $options = null): array
+    public function request(string $method, string $uri, ?array $options = null): array
     {
         if (!$this->isConnected()) {
             return [];
@@ -122,33 +103,17 @@ class Client
         return $this->buildRequest($method, $uri, $options);
     }
 
-    /**
-     * @param string     $uri
-     * @param null|array $options
-     * @return array
-     */
-    public function get($uri, $options = null): array
+    public function get(string $uri, ?array $options = null): array
     {
         return $this->request(RequestMethod::GET, $uri, $options);
     }
 
-    /**
-     * @param string     $uri
-     * @param null|array $options
-     * @return array
-     */
-    public function post($uri, $options = null): array
+    public function post(string $uri, ?array $options = null): array
     {
         return $this->request(RequestMethod::POST, $uri, $options);
     }
 
-    /**
-     * @param string     $method
-     * @param string     $uri
-     * @param null|array $options
-     * @return array
-     */
-    private function buildRequest($method, $uri, $options = null): array
+    private function buildRequest(string $method, string $uri, ?array $options = null): array
     {
         $uri = "{$uri}.json";
 
@@ -160,10 +125,7 @@ class Client
         return $this->provider->request($method, $uriBuilder->build(), $options);
     }
 
-    /**
-     * @param string $uri
-     */
-    private function connect($uri): void
+    private function connect(string $uri): void
     {
         $response = $this->get($uri);
         if (!empty($response['version'])) {

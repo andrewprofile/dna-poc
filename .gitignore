@@ -1,3 +1,5 @@
 /plugin/composer.lock
 /plugin/vendor/
 *.zip
+*.phar
+.typhp.yml

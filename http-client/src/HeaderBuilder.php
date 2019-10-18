@@ -9,23 +9,14 @@ class HeaderBuilder
      */
     private $headers;
 
-    /**
-     * HeaderBuilder constructor.
-     * @param string $licenseKey
-     * @param string $apiVersion
-     * @param string $pluginVersion
-     */
-    public function __construct($licenseKey, $apiVersion, $pluginVersion)
+    public function __construct(string $licenseKey, string $apiVersion, string $pluginVersion)
     {
         $this->add($this->buildFromData('Authorization', 'Token '.$licenseKey));
         $this->add($this->buildFromData('Accept-User-Agent', $apiVersion));
         $this->add($this->buildFromData('Accept-User-Agent-Version', $pluginVersion));
     }
 
-    /**
-     * @param string $header
-     */
-    public function add($header): void
+    public function add(string $header): void
     {
         $this->headers[] = $header;
     }
@@ -38,12 +29,7 @@ class HeaderBuilder
         return $this->headers;
     }
 
-    /**
-     * @param string $key
-     * @param string $value
-     * @return string
-     */
-    private function buildFromData($key, $value): string
+    private function buildFromData(string $key, string $value): string
     {
         return "{$key}: {$value}";
     }

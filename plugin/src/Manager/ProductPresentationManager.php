@@ -23,8 +23,11 @@ class ProductPresentationManager
      */
     private $presentationRepository;
 
-    public function __construct($client, $productRepository, $presentationRepository)
-    {
+    public function __construct(
+        Client $client,
+        ProductRepository $productRepository,
+        PresentationRepository $presentationRepository
+    ) {
         $this->client = $client;
         $this->productRepository = $productRepository;
         $this->presentationRepository = $presentationRepository;
