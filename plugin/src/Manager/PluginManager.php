@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DNA\Plugin\Manager;
 
 class PluginManager
@@ -7,33 +9,38 @@ class PluginManager
     /**
      * @var array
      */
-    protected static $defaultSettings;
+    protected $defaultSettings;
 
     /**
      * @var array
      */
-    protected static $settings;
+    protected $settings;
 
-    public static function getDefaultSettings(): array
+    public function getDefaultSettings(): array
     {
-        if (self::$defaultSettings === null) {
-            self::$defaultSettings = require __DIR__.'/../../config/default.php';
+        if ($this->defaultSettings === null) {
+            $this->defaultSettings = require __DIR__ . '/../../config/default.php';
         }
 
-        return self::$defaultSettings;
+        return $this->defaultSettings;
     }
 
-    public static function getSettings(bool $needsRefresh = false): array
+    public function getSettings(): array
     {
-        if (self::$settings === null || $needsRefresh) {
-            self::$settings = self::$defaultSettings;
+        if ($this->settings === null) {
+            $this->refreshSettings();
         }
 
-        return self::$settings;
+        return $this->settings;
     }
 
-    public static function updateSettings(string $key, string $value): void
+    public function refreshSettings(): void
     {
-        self::$settings[$key] = $value;
+        $this->settings = $this->defaultSettings;
+    }
+
+    public function updateSettings(string $key, string $value): void
+    {
+        $this->settings[$key] = $value;
     }
 }

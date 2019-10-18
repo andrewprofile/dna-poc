@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DNA\Plugin\Manager;
 
 use DNA\HttpClient\Client;

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DNA\Plugin\Repository;
 
 use DNA\MicroKernel\Persistence\Persistence;
@@ -25,10 +27,12 @@ class PresentationRepository
     public function save(array $data): void
     {
         foreach ($data as $key => $value) {
-            $this->persistence->persist([
-                'key' => Util::deCamelize($key),
+            $this->persistence->persist(
+                [
+                'key' => (new Util())->deCamelize($key),
                 'value' => $value,
-            ]);
+                ]
+            );
         }
     }
 }

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DNA\Plugin\Persistence;
 
 final class InMemoryClient
@@ -27,7 +29,7 @@ final class InMemoryClient
 
     public function query(string $query, string $value): void
     {
-       $this->data[$query] = $this->quote($value);
+        $this->data[$query] = $this->quote($value);
     }
 
     public function quote(string $value): string

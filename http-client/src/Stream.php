@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DNA\HttpClient;
 
 use Psr\Http\Message\StreamInterface;

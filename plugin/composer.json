@@ -13,15 +13,17 @@
         "php": "~7.1",
         "andrewprofile/micro-kernel": "1.0.0-dev",
         "andrewprofile/http-client": "1.0.0-dev",
-        "psr/http-message": "~1.0",
+        "psr/http-message": "@stable",
         "ext-json": "*",
         "ext-curl": "*"
     }
     ,
     "require-dev": {
         "roave/security-advisories": "dev-master",
-        "jakub-onderka/php-parallel-lint": "^1.0",
-        "phpstan/phpstan": "^0.11.16"
+        "jakub-onderka/php-parallel-lint": "@stable",
+        "phpstan/phpstan": "@stable",
+        "phpmd/phpmd" : "@stable",
+        "squizlabs/php_codesniffer": "@stable"
     },
     "autoload": {
         "psr-4": {
