@@ -193,11 +193,13 @@ final class JsonResponse implements ResponseInterface
         json_encode(null);
         $json = json_encode($data, $encodingOptions);
         if (JSON_ERROR_NONE !== json_last_error()) {
-            throw new InvalidArgumentException(sprintf(
-                'Unable to encode data to JSON in %s: %s',
-                __CLASS__,
-                json_last_error_msg()
-            ));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Unable to encode data to JSON in %s: %s',
+                    __CLASS__,
+                    json_last_error_msg()
+                )
+            );
         }
 
         return $json;
@@ -215,7 +217,7 @@ final class JsonResponse implements ResponseInterface
     /**
      * Update the response body for the given instance.
      *
-     * @param self $toUpdate Instance to update.
+     * @param  self $toUpdate Instance to update.
      * @return JsonResponse Returns a new instance with an updated body.
      */
     private function updateBodyFor(JsonResponse $toUpdate) : JsonResponse
@@ -530,8 +532,8 @@ final class JsonResponse implements ResponseInterface
      * listed in the IANA HTTP Status Code Registry) for the response's
      * status code.
      *
-     * @link http://tools.ietf.org/html/rfc7231#section-6
-     * @link http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
+     * @link   http://tools.ietf.org/html/rfc7231#section-6
+     * @link   http://www.iana.org/assignments/http-status-codes/http-status-codes.xhtml
      * @return string Reason phrase; must return an empty string if none present.
      */
     public function getReasonPhrase(): string
@@ -572,18 +574,22 @@ final class JsonResponse implements ResponseInterface
             || $code < static::MIN_STATUS_CODE_VALUE
             || $code > static::MAX_STATUS_CODE_VALUE
         ) {
-            throw new InvalidArgumentException(sprintf(
-                'Invalid status code "%s"; must be an integer between %d and %d, inclusive',
-                is_scalar($code) ? $code : gettype($code),
-                static::MIN_STATUS_CODE_VALUE,
-                static::MAX_STATUS_CODE_VALUE
-            ));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Invalid status code "%s"; must be an integer between %d and %d, inclusive',
+                    is_scalar($code) ? $code : gettype($code),
+                    static::MIN_STATUS_CODE_VALUE,
+                    static::MAX_STATUS_CODE_VALUE
+                )
+            );
         }
         if (! is_string($reasonPhrase)) {
-            throw new InvalidArgumentException(sprintf(
-                'Unsupported response reason phrase; must be a string, received %s',
-                is_object($reasonPhrase) ? get_class($reasonPhrase) : gettype($reasonPhrase)
-            ));
+            throw new InvalidArgumentException(
+                sprintf(
+                    'Unsupported response reason phrase; must be a string, received %s',
+                    is_object($reasonPhrase) ? get_class($reasonPhrase) : gettype($reasonPhrase)
+                )
+            );
         }
         if ($reasonPhrase === '' && isset($this->phrases[$code])) {
             $reasonPhrase = $this->phrases[$code];
@@ -594,9 +600,11 @@ final class JsonResponse implements ResponseInterface
 
     private function injectContentType(string $contentType, array $headers) : array
     {
-        $hasContentType = array_reduce(array_keys($headers), static function ($carry, $item) {
-            return $carry ?: (strtolower($item) === 'content-type');
-        }, false);
+        $hasContentType = array_reduce(
+            array_keys($headers), static function ($carry, $item) {
+                return $carry ?: (strtolower($item) === 'content-type');
+            }, false
+        );
         if (! $hasContentType) {
             $headers['content-type'] = [$contentType];
         }

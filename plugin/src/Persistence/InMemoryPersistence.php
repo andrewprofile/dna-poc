@@ -4,16 +4,17 @@ declare(strict_types=1);
 
 namespace DNA\Plugin\Persistence;
 
+use DNA\MicroKernel\Persistence\Client;
 use DNA\MicroKernel\Persistence\Persistence;
 
 final class InMemoryPersistence implements Persistence
 {
     /**
-     * @var InMemoryClient
+     * @var Client
      */
     private $client;
 
-    public function __construct(InMemoryClient $client)
+    public function __construct(Client $client)
     {
         $this->client = $client;
     }

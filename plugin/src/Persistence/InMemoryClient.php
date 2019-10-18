@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace DNA\Plugin\Persistence;
 
-final class InMemoryClient
+use DNA\MicroKernel\Persistence\Client;
+
+final class InMemoryClient implements Client
 {
     private $data = [];
 
@@ -37,7 +39,7 @@ final class InMemoryClient
         return (string) $value;
     }
 
-    public function fetchAll(string $query, string $value): array
+    public function fetchAll(string $query, string $value): ?array
     {
         return $this->fetchRow($query, $value);
     }
