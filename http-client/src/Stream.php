@@ -41,8 +41,8 @@ class Stream implements StreamInterface
     protected $stream;
 
     /**
-     * @param string|resource $stream
-     * @param string $mode Mode with which to open stream
+     * @param  string|resource $stream
+     * @param  string          $mode   Mode with which to open stream
      * @throws Exception\InvalidArgumentException
      */
     public function __construct($stream, string $mode = 'r')
@@ -93,8 +93,8 @@ class Stream implements StreamInterface
     /**
      * Attach a new stream/resource to the instance.
      *
-     * @param string|resource $resource
-     * @param string $mode
+     * @param  string|resource $resource
+     * @param  string          $mode
      * @throws Exception\InvalidArgumentException for stream identifier that cannot be
      *     cast to a resource
      * @throws Exception\InvalidArgumentException for non-resource stream
@@ -283,8 +283,8 @@ class Stream implements StreamInterface
     /**
      * Set the internal stream resource.
      *
-     * @param string|resource $stream String stream target or stream resource.
-     * @param string $mode Resource mode for stream target.
+     * @param  string|resource $stream String stream target or stream resource.
+     * @param  string          $mode   Resource mode for stream target.
      * @throws Exception\InvalidArgumentException for invalid streams or resources.
      */
     private function setStream($stream, string $mode = 'rb') : void
@@ -292,12 +292,14 @@ class Stream implements StreamInterface
         $error    = null;
         $resource = $stream;
         if (is_string($stream)) {
-            set_error_handler(static function ($e) use (&$error) {
-                if ($e !== E_WARNING) {
-                    return;
+            set_error_handler(
+                static function ($e) use (&$error) {
+                    if ($e !== E_WARNING) {
+                        return;
+                    }
+                    $error = $e;
                 }
-                $error = $e;
-            });
+            );
             $resource = fopen($stream, $mode);
             restore_error_handler();
         }

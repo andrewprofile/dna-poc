@@ -17,7 +17,6 @@ class CurlProvider implements Provider
     private $handle;
 
     /**
-     * CurlProvider constructor.
      * @throws ProviderException
      */
     public function __construct()
