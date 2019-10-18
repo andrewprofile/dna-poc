@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DNA\HttpClient\Provider\Exception;
 
 use Exception;

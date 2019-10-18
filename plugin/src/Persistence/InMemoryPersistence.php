@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DNA\Plugin\Persistence;
 
 use DNA\MicroKernel\Persistence\Persistence;

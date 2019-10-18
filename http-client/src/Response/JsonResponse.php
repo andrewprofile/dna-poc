@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace DNA\HttpClient\Response;
 
 use DNA\HttpClient\Exception\InvalidArgumentException;
