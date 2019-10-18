@@ -18,3 +18,23 @@ $ vendor/bin/phpmd src html cleancode, codesize, controversial, design, naming, 
 ```php
 $ vendor/bin/phpcs --standard=PSR2 src
 ```
+
+```php
+$ vendor/bin/phpcpd --fuzzy src ../http-client/src/ ../micro-kernel/src/
+```
+
+```php
+$ vendor/bin/phploc src
+```
+
+```php
+$ vendor/bin/phan --allow-polyfill-parser
+```
+
+```php
+$ vendor/bin/infection --threads=4
+```
+
+```php
+$ vendor/bin/psalm
+```

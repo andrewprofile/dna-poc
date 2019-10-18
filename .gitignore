@@ -2,5 +2,5 @@
 /plugin/vendor/
 *.zip
 *.phar
-.typhp.yml
 *.html
+*.log

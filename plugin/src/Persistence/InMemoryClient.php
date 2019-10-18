@@ -8,8 +8,14 @@ use DNA\MicroKernel\Persistence\Client;
 
 final class InMemoryClient implements Client
 {
+    /**
+     * @var array
+     */
     private $data = [];
 
+    /**
+     * @var int
+     */
     private $lastId = 0;
 
     public function getPrefix(): string
