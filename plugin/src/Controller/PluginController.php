@@ -7,7 +7,7 @@ use DNA\HttpClient\Provider\Exception\ProviderException;
 use DNA\HttpClient\Response\JsonResponse;
 use DNA\Plugin\Installer\PluginInstaller;
 use DNA\Plugin\Manager\PluginManager;
-use DNA\Plugin\Manager\PresentationManager;
+use DNA\Plugin\Manager\ProductPresentationManager;
 use DNA\Plugin\Persistence\InMemoryClient;
 use DNA\Plugin\Persistence\InMemoryPersistence;
 use DNA\Plugin\Repository\PresentationRepository;
@@ -22,9 +22,9 @@ final class PluginController
     private $client;
 
     /**
-     * @var PresentationManager
+     * @var ProductPresentationManager
      */
-    private $presentationManager;
+    private $productPresentationManager;
 
     /**
      * @throws ProviderException
@@ -39,7 +39,11 @@ final class PluginController
         );
         $productRepository = new ProductRepository(new InMemoryPersistence(new InMemoryClient()));
         $presentationRepository = new PresentationRepository(new InMemoryPersistence(new InMemoryClient()));
-        $this->presentationManager = new PresentationManager($this->client, $productRepository, $presentationRepository);
+        $this->productPresentationManager = new ProductPresentationManager(
+            $this->client,
+            $productRepository,
+            $presentationRepository
+        );
     }
 
     public function isNewestPluginVersionAction(): ResponseInterface
@@ -87,7 +91,7 @@ final class PluginController
 
     public function getProductPresentation(string $sku): ResponseInterface
     {
-        $result = $this->presentationManager->getPresentationFromSource($sku);
+        $result = $this->productPresentationManager->getMetadataOfProductPresentation($sku);
 
         return new JsonResponse([
             'product_presentation' => $result,
@@ -98,45 +102,23 @@ final class PluginController
 
     public function linkPresentationToProductAction(string $sku): ResponseInterface
     {
-        $presentation = $this->presentationManager->getPresentationFromSource($sku);
-        $result = $this->presentationManager->linkPresentationToProduct(
-            $sku,
-            $presentation
-        );
+        $result = $this->productPresentationManager->linkPresentationToProduct($sku);
 
         return new JsonResponse([
             'presentation_linked' => $result,
         ],
-            !$result ? 400 : 200
+            $result === null ? 400 : 200
         );
     }
 
     public function synchronizationPresentationWithProductAction(string $sku): ResponseInterface
     {
-        $presentationMetadata = $this->presentationManager->getMetadataOfPresentation($sku);
-        $presentationFromSource = $this->presentationManager->getPresentationFromSource($sku);
-
-        if ($presentationMetadata === null || $presentationFromSource === null){
-            return new JsonResponse([
-                'product_presentation' => [],
-            ],
-                400
-            );
-        }
-
-        $presentation = [];
-
-        foreach ($presentationFromSource as $key => $value) {
-            foreach ($presentationMetadata as $metadata) {
-                if ($key === $metadata) {
-                    $presentation[$key] = $value;
-                    unset($presentationFromSource[$key], $presentationMetadata[$metadata]);
-                }
-            }
-        }
+        $result = $this->productPresentationManager->synchronizationPresentationWithProduct($sku);
 
         return new JsonResponse([
-            'product_presentation' => $presentation,
-        ]);
+            'product_presentation' => $result,
+        ],
+            $result === null ? 400 : 200
+        );
     }
 }

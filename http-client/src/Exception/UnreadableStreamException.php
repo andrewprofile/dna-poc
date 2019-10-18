@@ -1,4 +1,5 @@
 <?php
+
 namespace DNA\HttpClient\Exception;
 
 use RuntimeException;
